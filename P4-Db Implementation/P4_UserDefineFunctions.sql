@@ -1,7 +1,4 @@
-USE RideSharingApp
-GO
-
----- Computed Column User Define Function : 1 ----
+---- Computed Column User Define Function : 1 -----------
 
 CREATE FUNCTION CalculateCommissionAmount (@TripID INT)
 RETURNS DECIMAL(10,2)
@@ -34,10 +31,10 @@ GO
 
 ALTER TABLE DriverBilling
 ADD CommissionAmount AS dbo.CalculateCommissionAmount(TripID);
-GO
 
 ---- Computed Column User Define Function : 2 -------
 
+GO
 CREATE FUNCTION CalculateDriverBilling (@TripID INT)
 RETURNS DECIMAL(10,2)
 AS
@@ -61,5 +58,20 @@ GO
 ALTER TABLE DriverBilling
 ADD TotalDriverPay AS dbo.CalculateDriverBilling(TripID);
 
-
 SELECT * FROM DriverBilling
+
+
+----- User Defined Function 1 ------
+GO
+CREATE FUNCTION CalculateTotalTripsByDriver (@DriverID INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @TotalTrips INT;
+    SELECT @TotalTrips = COUNT(*)
+    FROM TRIP
+    WHERE DriverID = @DriverID;
+    RETURN @TotalTrips;
+END;
+GO
+SELECT dbo.CalculateTotalTripsByDriver(301) AS TotalDriverTrips
