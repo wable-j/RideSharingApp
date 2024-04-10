@@ -176,3 +176,7 @@ SET CreditCardNumberEncrypted = EncryptByKey(Key_GUID('RideSharingAppSymmetricKe
 GO
 CLOSE SYMMETRIC KEY RideSharingAppSymmetricKey;
 GO
+
+
+SELECT * FROM CAR;
+SELECT * FROM BILLING;
